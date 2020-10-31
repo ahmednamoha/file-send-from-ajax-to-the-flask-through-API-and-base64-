@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="file" type="file" onchange="readFile(this)">
+    <button onclick="fun()"> riix</button>
+    
+    <script>
+        function readFile(input) {
+            let file = input.files[0];
+
+            let reader = new FileReader();
+
+            reader.readAsBinaryString(file)
+
+            reader.onload = function () {
+                console.log(reader.result);
+            };
+
+            reader.onerror = function () {
+                console.log(reader.error);
+            };
+
+        }
+        // function fun(){
+        //     alert('aaa');
+        //     let file = document.getElementById("file").files[0];
+        //     console.log(file);
+        //     let reader = new FileReader();
+        //     console.log(reader);
+        //     reader.readAsDataURL(file);
+        //     reader.onload = function () {
+        //         console.log(reader.result);
+        //     }
+        // }
+    </script>
+</body>
+</html>

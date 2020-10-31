@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #photo-input {
+            display: block;
+            margin-bottom: 50px;
+        }
+    </style>
+    <head>
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+        
+    </head>
+
+</head>
+<body>
+    
+        <!-- <input type="file" id="photo-input" name="file" value="C:\Users\PC\Downloads\AsterCTI\techextension\upload\profile\us_27\profile1.jpg" /> -->
+        <input type="file" id="fileUpload" name="fileInput" class="form-control" />
+
+        <button id="submit" onclick="fun()">Send JSON data</button>
+        <img src="" alt="Poker Card">
+        
+        <div id="output"></div>
+    
+    <script src="./jquery.min.js"></script>
+    <script src="./jquery-ui.js"></script>
+    <script src="./bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        function fun(){
+            // var logoImg = $('#photo-input').prop('files')[0];
+            // var f = document.querySelector('#photo-input').val;
+            // //  console.log(ext)
+            // console.log(logoImg);
+            // $('img').attr("src", logoImg);
+            // var formData = new FormData();
+            // formData.append('file', logoImg);
+            // formData.append('name', 'ahmed');
+            // var dataa = { 'name': 'ahmed' }
+            // console.log(formData);
+
+
+            // =================
+            var url = 'http://127.0.0.1:5000/'
+
+           
+
+            if($("#fileUpload").val() != "") {
+                let file = document.getElementById("fileUpload").files[0];
+                var path = (window.URL || window.webkitURL).createObjectURL(file);
+                console.log('path', path);
+                // var logoImg = $('#fileUpload').val;
+                 var logoImg = $("#fileUpload").files[0];
+                console.log(file);
+                // console.log(file.files); 
+                var fileName = file.name;
+                // var types = file.contentType;
+                var contentType = fileName.substring(fileName.lastIndexOf('.') + 1);
+                var r = new FileReader();
+                r.readAsDataURL(file);
+                console.log(logoImg);
+                // var bn =  r.readAsDataURL(file);
+                // console.log(readerEvt.target.fileName);
+                return false
+                console(bn)
+                r.onload = function (readerEvt) {
+                    
+                    var binimage = r.result.split(',')[1];
+                    // var base64result = r.result.split(',')[1];
+                    console.log(binimage);
+                    var dataa = { 'name': fileName,  'contentType': contentType, 'file': binimage}
+                    return false
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: JSON.stringify(dataa),
+                        dataType: 'json',
+                        contentType: 'application/json;charset=UTF-8',
+                        enctype: 'UTF-8',
+                        mimeType: 'UTF-8',
+                        processData: false,
+                        cache: false,
+                        complete: function (data) {
+                            alert("success");
+                        }
+                    });
+                }
+            } else {
+                alert("Soo geli file");
+            }
+        }
+        
+    </script>
+</body>
+</html>
